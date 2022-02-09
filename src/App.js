@@ -1,11 +1,12 @@
-import Movie from "./movie";
+import Movie from "./searchInput";
 import React from "react";
 import "./App.css";
 import axios from "axios";
+import Moviereview from "./components/movieReview";
 
 class App extends React.Component {
   state = {
-    name: {},
+    Rivew: [],
   };
 
   onSearchSubmit = async (e) => {
@@ -18,7 +19,9 @@ class App extends React.Component {
       const Response = await axios.get(
         `https://www.omdbapi.com/?i=${elemnet.imdbID}&apikey=21193e36`
       );
-      console.log(Response.data);
+
+      this.setState({ Rivew: Response.data });
+      console.log(this.state.Rivew);
     });
   };
   render() {
@@ -26,6 +29,7 @@ class App extends React.Component {
       <div className="ui container" style={{ marginTop: "30px" }}>
         <Movie onSearchSubmit={this.onSearchSubmit} />
         {/* <Response temp={this.state.temp} /> */}
+        <Moviereview Rivew={this.state.Rivew} />
       </div>
     );
   }
